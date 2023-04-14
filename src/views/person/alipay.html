@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>招财拍——支付宝支付</title>
+</head>
+<body>
+		
+		<div id="alipay">
+			
+			
+		</div>
+
+
+    <script language="javascript" type="text/javascript">
+
+getcode();
+    function getcode(){		
+		// let code = this.$route.query.code;
+		
+		// //像后端发送code
+		
+		
+		
+		// this.$router.push('/person');
+		
+		// window.localStorage.setItem('token', res.data.token);
+		// this.$store.commit('saveToken', res.data.token);		
+		
+		
+        var loc = location.href;
+			var n1 = loc.length; //地址的总长度
+			console.log(n1)
+			var n2 = loc.indexOf("?"); //取得?号的位置	
+			var dec = decodeURI(loc.substr(n2 + 1, n1)); 
+			var codex = dec.indexOf("form=");
+			
+			
+			var code = decodeURI(dec.substring(codex + 5, n1));
+			
+			document.getElementById('alipay').innerHTML=code
+			document.forms['alipaysubmit'].submit();
+    }
+        	
+
+      
+    </script>
+</body>
+</html>

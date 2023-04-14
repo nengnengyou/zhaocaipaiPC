@@ -1,0 +1,9 @@
+diff a/src/main.js b/src/main.js	(rejected hunks)
+@@ -9,6 +9,7 @@
+ import './router/routerConfig'
+ 
+ 
++
+ 
+ 
+ 

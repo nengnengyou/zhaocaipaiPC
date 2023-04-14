@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>招财拍——微信扫码登录</title>
+</head>
+<body>
+
+
+
+    <script language="javascript" type="text/javascript">
+
+getcode();
+    function getcode(){		
+		// let code = this.$route.query.code;
+		
+		// //像后端发送code
+		
+		
+		
+		// this.$router.push('/person');
+		
+		// window.localStorage.setItem('token', res.data.token);
+		// this.$store.commit('saveToken', res.data.token);
+		
+		
+		
+		
+        var loc = location.href;
+			var n1 = loc.length; //地址的总长度
+			console.log(loc)
+			var n2 = loc.indexOf("?"); //取得?号的位置	
+			var dec = decodeURI(loc.substr(n2 + 1, n1)); 
+			var codex = dec.indexOf("code=");
+			console.log(codex)
+			if(codex==-1){
+				window.location.href="http://www.zhaocaipaipai.com/#/login"
+			}else{
+				var statex = dec.indexOf("&state");
+				console.log(statex)
+				dec.sub
+				var code = decodeURI(dec.substring(codex + 5, statex)); 
+				console.log(code); 
+				
+				window.location.href="http://www.zhaocaipaipai.com/#/login?code="+code;  
+			}
+			
+    }
+        	
+
+      
+    </script>
+</body>
+</html>

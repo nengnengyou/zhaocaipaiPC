@@ -1,0 +1,58 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "8048739",
+      "name": "computer",
+      "font_class": "diannaofuben",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "8076018",
+      "name": "icon_user",
+      "font_class": "icon_user",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "11456260",
+      "name": "computer",
+      "font_class": "icon-test",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "12187134",
+      "name": "pwd",
+      "font_class": "pwd",
+      "unicode": "e663",
+      "unicode_decimal": 58979
+    },
+    {
+      "icon_id": "13743983",
+      "name": "qr-code",
+      "font_class": "qr-code",
+      "unicode": "e68d",
+      "unicode_decimal": 59021
+    },
+    {
+      "icon_id": "14005653",
+      "name": "上",
+      "font_class": "shang",
+      "unicode": "e51d",
+      "unicode_decimal": 58653
+    },
+    {
+      "icon_id": "14401409",
+      "name": "close-outline",
+      "font_class": "close-outline",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    }
+  ]
+}
