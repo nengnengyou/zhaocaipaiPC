@@ -82,12 +82,22 @@
 					</div>
 
 				</div>
+
+				<div class="selset-area-box">
+					<div class="selset-area" v-for="(item ,index) in areaList  " :key="index" >
+						<el-badge :value="item.count" class="item">
+                        <el-radio-group v-model="radio1" @input="getAreaData(item.car_place_info)">
+                           <el-radio-button :label="item.car_place_info"></el-radio-button>
+                       </el-radio-group>
+                    </el-badge>
+					</div>
+				</div>
 			</div>
 
 		</div>
 		<div class="main" ref='main'>
 			<div class="main_content" v-loading="loading">
-				<div v-if="conunt==0" class="sousuokong">
+				<div v-if="conunt==0||count1==0" class="sousuokong">
 					<span>
 						对不起，没有你搜索的内容!
 					</span>
@@ -100,7 +110,7 @@
 							<el-card :body-style="{padding: '0px' ,display: 'block',background: '#f6f6f6',position: 'relative',minheight: '345px',}">
 
 								<div style="width: 100%;height: 202px;    background: #fff;">
-									<img v-if="carlist[index].car_pic_url" :src="carlist[index].car_pic_url" class="image" alt="">
+									<img v-if="carlist[index].car_pic_url" :src="carlist[index].car_pic_url +'?x-oss-process=image/resize,m_fixed,h_202,w_275'" class="image" alt="">
 									<!-- <img v-if="!carlist[index].car_pic_url" src="../assets/images/zanwutupian.png" class="image2" alt="暂无图片"> -->
 									<img v-if="carlist[index].car_pic_url==''&&carlist[index].check_report_path==''" src="../assets/images/无图无检.jpg" class="image2" alt="暂无图片">
 									<img v-if="carlist[index].car_pic_url==''&&carlist[index].check_report_path!=''" src="../assets/images/无图有检.jpg" class="image2" alt="暂无图片">
@@ -173,9 +183,6 @@
 
 	</div>
 
-
-
-
 </template>
 
 <script>
@@ -183,6 +190,9 @@
 		name: 'auction',
 		data() {
 			return {
+				radio1: '',
+				areaList:[],
+				count1:'1',
 
 				loading: true,
 
@@ -223,6 +233,7 @@
 				p: 1,
 
 				type: true,
+				
 
 
 
@@ -232,7 +243,13 @@
 
 		mounted() {
 			this.getid(); //获取传值id，获取后直接执行显示函数
+			this.getAuctionCarSearch()
+			
 		},
+		// undated(){
+		
+
+		// },
 
 		// created() {
 		// 	this.getid(); //获取传值id，获取后直接执行显示函数
@@ -262,7 +279,14 @@
 			handleCurrentChange(val) {
 				console.log(`当前页: ${val}`);
 				this.p = val
+				if(this.radio1!=''){
+					this.getAreaData()
+					return
+
+				}
+			
 				this.getcarlist();
+				
 				document.body.scrollTop = document.documentElement.scrollTop = 0
 			},
 
@@ -297,7 +321,7 @@
 					var h = Math.ceil(this.carlist.length / 4); //this.carlist.length%4==0?this.carlist.length/4:this.carlist.length/4+1;
 					console.log(h);
 					this.$refs.main.style.height = h * 372 + 'px';
-					console.log(this.carlist);
+					// console.log(this.carlist);
 				})
 
 
@@ -323,6 +347,12 @@
 
 			//获取车辆列表
 			getcarlist(title) {
+				if(this.radio1!=''){
+					this.getAreaData()
+					return
+
+				}
+				// console.log(title)
 				this.loading = true
 				// var a=ax.post('api/auction/getCarList',{'auction_session_id':id,});
 				this.carlist.length = 0;
@@ -345,7 +375,7 @@
 					} else {
 
 						this.carlist = res.data.list;
-						//console.log(this.carlist);
+						console.log(this.carlist);
 						var h = Math.ceil(this.carlist.length / 4); //this.carlist.length%4==0?this.carlist.length/4:this.carlist.length/4+1;
 						//console.log(h);
 						this.$refs.main.style.height = h * 372 + 'px';
@@ -369,17 +399,18 @@
 						this.cardtxt.session_status = res.data.list[0].session_status
 						this.loading = false
 					}
-
-
-
 					if (this.type) {
 						this.type = false
 						this.piciVisible = true
 					}
+					this.formInline.carNum_or_carVin=''
+
+				
+
 				})
 
 
-
+				this.getAreaData(title)
 				// //加载上方卡片信息
 				// this.cardtxt.bt = this.$route.query.pc;
 				// this.cardtxt.gs = this.$route.query.gs;
@@ -457,7 +488,86 @@
 				}
 
 				return ([d, h, m, s])
-			}
+			},
+			getAuctionCarSearch() {
+				let param = {
+					auction_session_id: this.auction_session_id, //this.id,
+					// title: this.searchText, //改一下数据
+					// p: 1,
+					// row: 50
+				}
+				this.$api.getAuctionCarSearch(param).then(res => {
+					// console.log(res, '8888888888888888')
+					if (res.code === 1) {
+
+						this.areaList = res.data.list
+						
+					}
+
+				})
+
+			},
+			getAreaData(item) {
+					// console.log(this.radio1,111111)
+				// console.log(title,item)
+				// if(item==='全部'){
+				// 	item=''
+
+				// }
+				// let param = 
+				
+	
+				this.loading = true
+				this.$api.getCarSearchDetail({
+					auction_session_id: this.auction_session_id, //this.id,
+					title: this.formInline.carNum_or_carVin, //改一下数据
+					car_place_info: this.radio1,
+					p: this.p,
+					// row: 20
+				}).then(res => {
+					console.log(res)
+					if (res.data.count == 0) {
+						this.carlist = res.data.list;
+						this.count1=res.data.count
+						var h = Math.ceil(this.carlist.length / 4); //this.carlist.length%4==0?this.carlist.length/4:this.carlist.length/4+1;
+						this.$refs.main.style.height = h * 372 + 'px';
+						this.conunt = Math.ceil(this.count1/20);
+						this.loading = false
+						this.cardtxt = res.data.session
+					// }else if (this.isend2(res.data.list[0].start_time)) {
+					// 	this.$message.warning('预排资源包不能查看车辆')
+					// 	this.loading = false
+					}else{
+						this.carlist = res.data.list
+						this.count1=res.data.count
+						var h = Math.ceil(this.carlist.length / 4); //this.carlist.length%4==0?this.carlist.length/4:this.carlist.length/4+1;
+						//console.log(h);
+						this.$refs.main.style.height = h * 372 + 'px';
+						// console.log(this.carlist);
+
+						this.conunt = Math.ceil(this.count1/20);
+						// console.log(this.conunt)
+						
+						this.loading = false
+
+					}
+
+
+					// console.log(res, '8888888888888888')
+					// if (res.code === 1) {
+					// 	this.carlist = res.data.list
+					// 	this.count1=res.data.count
+						
+					// 	// console.log(this.carlist,'地区')
+					// }
+					// console.log(this.count1)
+
+
+				})
+				this.formInline.carNum_or_carVi='',
+				this.p=''
+
+			},
 
 
 		},
@@ -650,6 +760,15 @@
 	.sort-orders {
 		text-align: left;
 		font-size: 16px;
+	}
+	.selset-area{
+		margin: 10px;
+	}
+	.selset-area-box{
+		display: flex;
+		// justify-content: space-between;
+		flex-wrap: wrap;
+		// margin: 30px;
 	}
 
 	.current {

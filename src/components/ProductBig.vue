@@ -5,15 +5,30 @@
       :style="{'background': 'url(../assets/images/product.png) no-repeat center center','background-size':'cover'}"
     ></div>-->
     <div class="img-box">
-      <img v-if="imgsrc" class="img" :src="imgsrc"  style="object-fit: contain" />
-      <img v-if="!imgsrc" class="img" src="../assets/images/zanwutupian.png" style="object-fit: contain" />
+      <img
+        v-if="imgsrc"
+        class="img"
+        :src="imgsrc"
+        style="object-fit: contain"
+      />
+      <img
+        v-if="!imgsrc"
+        class="img"
+        src="../assets/images/zanwutupian.png"
+        style="object-fit: contain"
+      />
     </div>
-    <div class="pro-con" :style="isPai?{'padding-bottom':'0px'}:{'padding-bottom':'12px'}">
-      <p class="title">{{title}}</p>
-      <p class="subtitle">{{subtitle}}</p>
+    <div
+      class="pro-con"
+      :style="
+        isPai ? { 'padding-bottom': '0px' } : { 'padding-bottom': '12px' }
+      "
+    >
+      <p class="title">{{ title }}</p>
+      <p class="subtitle">{{ subtitle }}</p>
       <p v-if="isPai" class="pai-price">
         起拍价
-        <span style="color:red">{{price}}</span>
+        <span style="color:red">{{ price }}</span>
       </p>
       <p v-if="!isPai" class="pai-price">
         <!-- <span style="color:red;font-size:23px;">{{price}}</span> -->
@@ -24,47 +39,46 @@
         <span class="pai-tag" v-else>竞拍结束</span>
         <span class="pai-time" v-if="isCarsShow(end_time)">
           剩余
-          <span style="color:red">{{countTime(end_time)[0]}}</span>天
-          <span style="color:red">{{countTime(end_time)[1]}}</span>时
-          <span style="color:red">{{countTime(end_time)[2]}}</span>分
-          <span style="color:red">{{countTime(end_time)[3]}}</span>秒
+          <span style="color:red">{{ countTime(end_time)[0] }}</span
+          >天 <span style="color:red">{{ countTime(end_time)[1] }}</span
+          >时 <span style="color:red">{{ countTime(end_time)[2] }}</span
+          >分 <span style="color:red">{{ countTime(end_time)[3] }}</span
+          >秒
         </span>
 
         <span v-else>
-           剩余
-          <span style="color:red">0</span>天
-          <span style="color:red">0</span>时
-          <span style="color:red">0</span>分
-          <span style="color:red">0</span>秒
+          剩余
+          <span style="color:red">0</span>天 <span style="color:red">0</span>时
+          <span style="color:red">0</span>分 <span style="color:red">0</span>秒
         </span>
       </div>
     </div>
-    <span v-show="false">{{refresh}}</span>
+    <span v-show="false">{{ refresh }}</span>
   </div>
 </template>
 <script>
 export default {
-  name: 'product-big',
-  data () {
+  name: "product-big",
+  data() {
     return {
-      refresh: false
-    }
+      refresh: false,
+    };
   },
-  created () {
+  created() {
     /* 刷新计时器 */
     setInterval(() => {
-      this.refresh = !this.refresh
+      this.refresh = !this.refresh;
     }, 1000);
   },
   methods: {
-    isCarsShow (time) {
+    isCarsShow(time) {
       console.log(time);
       let currentTime = Date.parse(new Date());
       currentTime = currentTime / 1000;
-      return currentTime < time
+      return currentTime < time;
     },
 
-    countTime (time, nowTimea) {
+    countTime(time, nowTimea) {
       //获取当前时间
       var date = new Date();
       var now = date.getTime();
@@ -75,14 +89,14 @@ export default {
       //定义变量 d,h,m,s保存倒计时的时间
       if (leftTime >= 0) {
         var d = Math.floor(leftTime / 1000 / 60 / 60 / 24);
-        var h = Math.floor(leftTime / 1000 / 60 / 60 % 24);
-        var m = Math.floor(leftTime / 1000 / 60 % 60);
-        var s = Math.floor(leftTime / 1000 % 60);
+        var h = Math.floor((leftTime / 1000 / 60 / 60) % 24);
+        var m = Math.floor((leftTime / 1000 / 60) % 60);
+        var s = Math.floor((leftTime / 1000) % 60);
       }
       //递归每秒调用countTime方法，显示动态时间效果
       setTimeout(this.countTime, 1000);
-      return ([d, h, m, s])
-    }
+      return [d, h, m, s];
+    },
   },
   props: {
     title: String,
@@ -91,11 +105,11 @@ export default {
     imgsrc: String,
     isPai: {
       type: Boolean,
-      default: true
+      default: true,
     },
-    end_time: Number
-  }
-}
+    end_time: Number,
+  },
+};
 </script>
 <style lang="less" scoped>
 .product-big {

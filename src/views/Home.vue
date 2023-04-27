@@ -54,11 +54,11 @@
 
 				<div class="Scene">
 
-					<div class="home_top">
+					<!-- <div class="home_top"> -->
 						<!-- 场次分类-->
 
 						<!-- <div style="margin: 0 auto;width: 1170px;;"> -->
-						<div style="width: 100%; height: 100%;">
+						<!-- <div style="width: 100%; height: 100%;"> -->
 							<!-- <ul style="list-style: none;">
 								<li @mouseover="hover('86px')" style="float: left;" class="cangciitem item1"> <a href="#/auctionhome"
 									 target='_blank'><img class="navimage" id="li1" ref="li1" src="../assets/images/home/top/home_pczc2.jpg" alt=""></a></li>
@@ -74,11 +74,11 @@
 									 target='_blank'><img class="navimage" ref="li7" id="li7" src="../assets/images/home/top/home_jczb2.jpg" alt=""></a></li>
 							</ul> -->
 
-							<img style="float: left;" src="../assets/images/home/top/home_top1.jpg" alt="">
+							<!-- <img style="float: left;" src="../assets/images/home/top/home_top1.jpg" alt=""> -->
 
-							<div style="width: 100%; height:100%; position: relative;">
+							<!-- <div style="width: 100%; height:100%; position: relative;"> -->
 
-								<div>
+								<!-- <div>
 									<a href="#/auctionhome">
 
 										<div class="home_top_item top_item1">
@@ -88,9 +88,9 @@
 											</div>
 										</div>
 									</a>
-								</div>
+								</div> -->
 
-								<div>
+								<!-- <div>
 									<a href="#/buycomm">
 										<div class="home_top_item top_item2">
 											<div class="img2">
@@ -99,12 +99,12 @@
 											</div>
 										</div>
 									</a>
-								</div>
+								</div> -->
 
-								<div>
-									<a @click="lianxi('功能开发中！')" style="cursor: pointer;">
+								<!-- <div> -->
+									<!-- <a @click="lianxi('功能开发中！')" style="cursor: pointer;"> -->
 										<!-- href="#/conveniently"> -->
-										<div class="home_top_item top_item4">
+										<!-- <div class="home_top_item top_item4">
 											<div class="img4">
 												<img style="width: 100%;height: 100%;"
 													src="../assets/images/home/top/top2/2.jpg" alt="">
@@ -113,9 +113,9 @@
 									</a>
 								</div>
 
-								<div>
+								<div> -->
 									<!-- <a href="#/service"> -->
-									<a @click="tiaofuwu">
+									<!-- <a @click="tiaofuwu">
 										<div class="home_top_item top_item3">
 											<div class="img3">
 												<img style="width: 100%;height: 100%;"
@@ -123,11 +123,11 @@
 											</div>
 										</div>
 									</a>
-								</div>
+								</div> -->
 
 
 
-								<div>
+								<!-- <div>
 									<a href="#/quan">
 										<div class="home_top_item top_item5">
 											<div class="img5">
@@ -152,12 +152,12 @@
 
 							</div>
 
-						</div>
+						</div> -->
 
 
-					</div>
+					<!-- </div> -->
 
-					<div style="display: flex;margin-top: 42px;">
+					<div style="display: flex;margin-top: 70px;">
 						<h3 style="display: block; width: 82px;margin: 14px 0 0 0;margin-left: 11px;">竞拍流程</h3>
 
 						<div style="width: 228px;">
@@ -282,7 +282,7 @@
 
 								<a href="#/auctionhome" style="    position: absolute;
 								right: 31px;
-								bottom: 7px;     font-size: 15px;
+								     font-size: 15px;
 								color:rgb(15, 148, 250);">查看全部竞拍车源>></a>
 
 							</div>
@@ -365,27 +365,27 @@
 
 							<div style="position: relative;">
 
-								<div style="width: 872px;">
+								<!-- <div style="width: 872px;">
 
 									<span class="Auction_title">常用服务</span>
 
 									<div style="padding-top: 30px;">
-										<!-- 	<div style="width: 863px;margin-left: 10px;;">
+											<div style="width: 863px;margin-left: 10px;;">
 										<card2></card2>
-									</div> -->
+									</div>
 										<card2></card2>
 
 									</div>
 
-								</div>
+								</div> -->
 
 
-								<div style="height: 23px;"></div>
+								<!-- <div style="height: 23px;"></div> -->
 
 
 
 
-								<div style="position: relative;height: 496px;width: 873px;">
+								<!-- <div style="position: relative;height: 496px;width: 873px;">
 
 									<span class="Auction_title">商家车源</span>
 
@@ -417,12 +417,12 @@
 																	style="display: block;width: 250px;height: 20px;overflow: hidden;margin-top: 4px;">{{item.carno.substring(0,item.carno.length-3)+"***"}}|{{item.ascription}}</span>
 
 																<div class="bottom clearfix"
-																	style="position: absolute; bottom: 5px;">
+																	style="position: absolute; bottom: 5px;"> -->
 
 																	<!-- <div class="Starting_price">{{cardtxt.status=="2"?'起拍价: ':'当前价:'}}<span class="price">¥{{cardtxt.status=="2"?carlist[index].start_price:carlist[index].high_money}}</span></div> -->
-																	<div class="Starting_price">价格
+																	<!-- <div class="Starting_price">价格
 																		<span class="price">¥{{item.pay_num}}</span>
-																	</div>
+																	</div> -->
 																	<!-- <div class="end_time" v-if="isend">
 																		<span>竞拍已结束</span>
 																	</div>
@@ -436,23 +436,22 @@
 
 																	</div> -->
 
-																</div>
+																<!-- </div> -->
 																<!-- <div class="time">类型：{{ carlist[index].car_type}}</div> -->
-															</div>
-														</el-card>
-													</el-col>
-												</el-row>
+															<!-- </div> -->
+														<!-- </el-card> -->
+													<!-- </el-col> -->
+												<!-- </el-row> -->
 
-											</div>
-
-
-
-										</div>
+											<!-- </div> -->
 
 
-										<a href="#/buycomm"
-											style="position: absolute; right: 31px; bottom: 7px; font-size: 15px; color: rgb(15, 148, 250);">查看全部商家车源&gt;&gt;</a>
-									</div>
+										<!-- </div> -->
+
+
+										<!-- <a href="#/buycomm"
+											style="position: absolute; right: 31px; bottom: 7px; font-size: 15px; color: rgb(15, 148, 250);">查看全部商家车源&gt;&gt;</a> -->
+									<!-- </div> -->
 
 
 
@@ -486,7 +485,7 @@
 										<img style="width: 100%;height: 100%; " src="../assets/images/home/ziyuanbao/2.jpg" alt="">
 									</div> -->
 
-								</div>
+								<!-- </div> -->
 
 
 								<div class="auctionhome_right">
@@ -775,7 +774,7 @@
 				this.$api.getSessionList({
 					type: 2
 				}).then(response => {
-					//console.log(response);
+					console.log(response,'respon');
 
 					/* for (let i = 0; i < response.data.list.data.length; i++) {
 
@@ -810,18 +809,19 @@
 						return
 					}
 
-					if (response.data.list.data.length <= 3) {
+					if (response.data.list.data.length <= 6) {
 						for (let i = 0; i < response.data.list.data.length; i++) {
 							this.package.push(response.data.list.data[i]);
 						}
 						this.package.h = this.package.length
 					} else {
-						for (let i = 0; i < 3; i++) {
+						for (let i = 0; i < 6; i++) {
 
 							this.package.push(response.data.list.data[i]);
 						}
 						this.package.h = response.data.list.auction
 					}
+					console.log(this.package.length)
 
 
 					//console.log(this.package);
@@ -1319,7 +1319,7 @@
 
 	.box {
 		position: relative;
-		height: 2335px; //2389px; //1850px;
+		height: 2180px;//2335px; //2389px; //1850px;
 		//background-color: #f7f7f7;
 
 
