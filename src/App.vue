@@ -92,7 +92,7 @@
 	@import url("./assets/iconfont.css");
 	@import url("./assets/base.less");
 	
-	body{size portrait:8.4in 11.8in}
+	// body{size portrait:8.4in 11.8in}
 
 	#app {
 		font-family: "Microsoft YaHei", Helvetica, Arial, sans-serif;
