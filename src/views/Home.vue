@@ -801,21 +801,21 @@
 
 					if (response.data.list.data.length == 0) {
 						// 	console.log(111)
-						// 	this.$refs.box.style.height = this.boxh + 246 * 3 + "px";
+							this.$refs.box.style.height = this.boxh + 246 * 3 + "px";
 
 						// 	//修改父div高度  // - 60 * this.package.length
-						// 	this.$refs.Auction.style.height = 246 * 3 + 58 + "px";
+							this.$refs.Auction.style.height = 246 * 3 + 58 + "px";
 						this.zhanwu = true
 						return
 					}
 
-					if (response.data.list.data.length <= 6) {
+					if (response.data.list.data.length <= 30) {
 						for (let i = 0; i < response.data.list.data.length; i++) {
 							this.package.push(response.data.list.data[i]);
 						}
 						this.package.h = this.package.length
 					} else {
-						for (let i = 0; i < 6; i++) {
+						for (let i = 0; i < 30; i++) {
 
 							this.package.push(response.data.list.data[i]);
 						}
@@ -828,12 +828,12 @@
 					//console.log(i);
 
 					//修改box的高度
-					// if (this.package.length > 0) {
-					// 	this.$refs.box.style.height = this.boxh + 246 * this.package.length + "px";
+					if (this.package.length > 0) {
+						this.$refs.box.style.height = this.boxh + 246 * this.package.length + "px";
 
-					// 	//修改父div高度  // - 60 * this.package.length
-					// 	this.$refs.Auction.style.height = (246 * this.package.length) + 58 + "px";
-					// }
+						//修改父div高度  // - 60 * this.package.length
+						this.$refs.Auction.style.height = (246 * this.package.length) + 58 + "px";
+					}
 
 
 
@@ -1144,7 +1144,7 @@
 					url: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
 					zb: "../assets/images/home_zb_1.jpg"
 				},
-				boxh: 1810, //box的高度
+				boxh:600, //1810, //box的高度
 				Auction: 0, //Auction  拍卖中 高度
 
 				souc: true,

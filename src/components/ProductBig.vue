@@ -25,7 +25,10 @@
       "
     >
       <p class="title">{{ title }}</p>
-      <p class="subtitle">{{ subtitle }}</p>
+      <p class="subtitle">
+        {{ subtitle }}
+       
+      </p>
       <p v-if="isPai" class="pai-price">
         起拍价
         <span style="color:red">{{ price }}</span>
@@ -71,6 +74,9 @@ export default {
     }, 1000);
   },
   methods: {
+    shouchang(val) {
+      this.$emit("shouchang", val);
+    },
     isCarsShow(time) {
       console.log(time);
       let currentTime = Date.parse(new Date());
@@ -108,6 +114,7 @@ export default {
       default: true,
     },
     end_time: Number,
+   
   },
 };
 </script>
@@ -150,6 +157,7 @@ export default {
     font-size: 20px;
     white-space: nowrap;
     width: 100%;
+    overflow: hidden;
     text-overflow: ellipsis;
   }
   .subtitle {

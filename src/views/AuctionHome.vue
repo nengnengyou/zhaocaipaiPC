@@ -525,7 +525,7 @@ export default {
   data() {
     return {
       searchtext2: "",
-      select: "",
+      select: "2",
       loading: true,
 
       isd: true,
@@ -754,7 +754,10 @@ export default {
             // console.log(res.data.list[key]);
             for (let i in res.data.list[key]) {
               //   var p2 = [];
+              // console.log(res.data.list[key][i]);
               p2.push(res.data.list[key][i]);
+              p2 = this.sortKey2(p2, "end_time");
+              // this.package = this.sortKey(this.package, "end_time");
               //   console.log(res.data.list[key][i]);
             }
             // p.push(res.data.list[key]);
@@ -803,6 +806,9 @@ export default {
           // console.log(this.num);
           // this.Zpackage = response.data.list.data;
           this.package = response.data.list.data;
+          // this.package.unshift(response.data.list.data);
+
+          // console.log(this.package, "sort");
           this.num = this.package.length;
           // console.log(this.package.length);
           // this.Zpackage = this.sortKey(this.Zpackage, 'end_time')
@@ -835,6 +841,13 @@ export default {
     },
 
     sortKey(array, key) {
+      return array.sort(function(a, b) {
+        var x = a[key];
+        var y = b[key];
+        return x < y ? -1 : x < y ? 1 : 0;
+      });
+    },
+    sortKey2(array, key) {
       return array.sort(function(a, b) {
         var x = a[key];
         var y = b[key];

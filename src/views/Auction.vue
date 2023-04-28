@@ -72,6 +72,11 @@
 							<input class="inputsousuo" v-model="formInline.carNum_or_carVin" placeholder="输入标题、车牌号、车架号"></input>
 						</div>
 						<div class="sousuoanniu" @click="getcarlist(formInline.carNum_or_carVin)"><span>搜索</span></div>
+						<div class="divbox" @click="getcarlist()">
+							<el-radio-group v-model="radio2" >
+                           <el-radio-button label="全部"></el-radio-button>
+                            </el-radio-group>
+						</div>
 
 					</div>
 
@@ -97,7 +102,7 @@
 		</div>
 		<div class="main" ref='main'>
 			<div class="main_content" v-loading="loading">
-				<div v-if="conunt==0||count1==0" class="sousuokong">
+				<div v-if="conunt==0" class="sousuokong">
 					<span>
 						对不起，没有你搜索的内容!
 					</span>
@@ -191,6 +196,7 @@
 		data() {
 			return {
 				radio1: '',
+				radio2:'',
 				areaList:[],
 				count1:'1',
 
@@ -231,13 +237,8 @@
 				conunt: 1,
 
 				p: 1,
-
 				type: true,
-				
-
-
-
-
+	
 			}
 		},
 
@@ -277,9 +278,16 @@
 
 			//分页
 			handleCurrentChange(val) {
-				console.log(`当前页: ${val}`);
+				// console.log(`当前页: ${val}`);
 				this.p = val
-				if(this.radio1!=''){
+				// if(this.radio1==='全部'){
+				// 	this.getAllCar()
+				// 	// return
+
+				// }
+				
+				// console.log('??',this.radio1)
+				if(this.radio1!==''){
 					this.getAreaData()
 					return
 
@@ -321,7 +329,7 @@
 					var h = Math.ceil(this.carlist.length / 4); //this.carlist.length%4==0?this.carlist.length/4:this.carlist.length/4+1;
 					console.log(h);
 					this.$refs.main.style.height = h * 372 + 'px';
-					// console.log(this.carlist);
+					// console.log(this.carlist,"@@@@@@@@@@");
 				})
 
 
@@ -347,8 +355,10 @@
 
 			//获取车辆列表
 			getcarlist(title) {
+			
 				if(this.radio1!=''){
 					this.getAreaData()
+					this.radio1=''
 					return
 
 				}
@@ -409,14 +419,16 @@
 
 				})
 
-
+				// this.radio1=''
 				this.getAreaData(title)
+				// this.radio1=''
 				// //加载上方卡片信息
 				// this.cardtxt.bt = this.$route.query.pc;
 				// this.cardtxt.gs = this.$route.query.gs;
 				// this.cardtxt.sl = this.$route.query.sl;
 
 			},
+
 
 			/*是否结束*/
 			isend2(endtime) {
@@ -526,19 +538,20 @@
 					// row: 20
 				}).then(res => {
 					console.log(res)
-					if (res.data.count == 0) {
-						this.carlist = res.data.list;
-						this.count1=res.data.count
-						var h = Math.ceil(this.carlist.length / 4); //this.carlist.length%4==0?this.carlist.length/4:this.carlist.length/4+1;
-						this.$refs.main.style.height = h * 372 + 'px';
-						this.conunt = Math.ceil(this.count1/20);
-						this.loading = false
-						this.cardtxt = res.data.session
-					// }else if (this.isend2(res.data.list[0].start_time)) {
-					// 	this.$message.warning('预排资源包不能查看车辆')
+					// if (res.data.count == 0) {
+					// 	this.carlist = res.data.list;
+					// 	this.count1=res.data.count
+					// 	var h = Math.ceil(this.carlist.length / 4); //this.carlist.length%4==0?this.carlist.length/4:this.carlist.length/4+1;
+					// 	this.$refs.main.style.height = h * 372 + 'px';
+					// 	this.conunt = Math.ceil(this.count1/20);
 					// 	this.loading = false
-					}else{
-						this.carlist = res.data.list
+					// 	this.cardtxt = res.data.session
+					// // }else if (this.isend2(res.data.list[0].start_time)) {
+					// // 	this.$message.warning('预排资源包不能查看车辆')
+					// // 	this.loading = false
+					// }else{
+						if(res.code==1){
+							this.carlist = res.data.list
 						this.count1=res.data.count
 						var h = Math.ceil(this.carlist.length / 4); //this.carlist.length%4==0?this.carlist.length/4:this.carlist.length/4+1;
 						//console.log(h);
@@ -549,8 +562,9 @@
 						// console.log(this.conunt)
 						
 						this.loading = false
+						}
 
-					}
+					// }
 
 
 					// console.log(res, '8888888888888888')
@@ -566,6 +580,7 @@
 				})
 				this.formInline.carNum_or_carVi='',
 				this.p=''
+				this.radio2=''
 
 			},
 
@@ -577,6 +592,10 @@
 </script>
 
 <style lang="less" scoped>
+.divbox {
+  margin-left: 10px;
+  margin-top: 5px;
+}
 	.jiaobiao {
 		position: absolute;
 		top: 0;

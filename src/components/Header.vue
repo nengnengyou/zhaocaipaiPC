@@ -5,7 +5,8 @@
       style="margin-top: 10px;"
       class="logo"
       src="../assets/images/logo10.png"
-      alt
+      alt="招财拍车网"
+      title="招财拍车网"
     />
     <div class="inner">
       <div id="nav" class="clearfloat">
