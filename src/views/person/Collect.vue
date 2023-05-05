@@ -24,6 +24,7 @@
                   '丨' +
                   item.status_text
               "
+              @shouchang="shouchang(item.auction_car_id)"
               :price="item.start_price + '元'"
             ></product-big>
           </div>
@@ -94,7 +95,30 @@ export default {
     this.activeName = to.params.type;
     next();
   },
+  updated() {
+    // this.getUserFavCar();
+  },
+
   methods: {
+    shouchang(val) {
+      console.log("点击了", val);
+
+      this.$api
+        .carNoLike({
+          auction_car_id: val,
+        })
+        .then((res) => {
+          if (res.code == 1) {
+            console.log(res);
+            this.ischang = false;
+            this.$message.warning("已取消收藏");
+            this.getUserFavCar();
+          } else {
+            this.$message.error("已收藏！");
+          }
+        });
+      // this.getUserFavCar();
+    },
     toDetail(id, type) {
       if (type == 1) {
         window.open(`index.html#/auctionhome/auctiondetail?id=${id}`, "_blank");
@@ -140,7 +164,7 @@ export default {
         .then((res) => {
           this.favList = res.data;
           this.auction_car_id = res.data.list.auction_car_id;
-          console.log(this.favList);
+          console.log(this.favList, "我的收藏");
         });
       this.$router.push(`/person/collect/${this.activeName}`);
     },

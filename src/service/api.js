@@ -765,4 +765,12 @@ export default {
   getAuctionCarSearch(param) {
     return post("/api/bidding/auction_car_search", param);
   },
+  // 车商转拍
+  getAuctionCarList(param) {
+    return post("/api/bidding/auction_car_index", param);
+  },
+  // 历史竞拍
+  getAuctionHistorySession(param) {
+    return post("/api/home/history_session_search", param);
+  },
 };

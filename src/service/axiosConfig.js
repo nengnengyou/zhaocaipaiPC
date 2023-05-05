@@ -23,14 +23,15 @@ axios.defaults.headers.post["Content-Type"] =
 // 配置接口地址
 // axios.defaults.baseURL = 'https://zcp.zhaocaipaipai.com'
 //axios.defaults.baseURL = 'http://dev.zhaocaipai.com'
-axios.defaults.baseURL = "https://test.zhaocaipaipai.com"; // "https://zcp.zhaocaipaipai.com";
-// axios.defaults.baseURL = 'https://new.zhaocaipaipai.com'
-// axios.defaults.baseURL = 'http://192.168.0.155:8010/'
-///axios.defaults.baseURL = 'http://192.168.0.139/'
-// axios.defaults.baseURL = 'http://192.168.0.138/'
-// axios.defaults.baseURL = 'http://39.107.239.87/'
-// axios.defaults.baseURL = 'http://192.168.0.155:8010/'
-// axios.defaults.baseURL = 'http://192.168.0.111:8010'
+axios.defaults.baseURL = //'http://192.168.2.22/'//"http://192.168.2.23:8040/index.php"; //"https://test.zhaocaipaipai.com"; // "https://zcp.zhaocaipaipai.com";
+  // axios.defaults.baseURL = 'https://new.zhaocaipaipai.com'
+  // axios.defaults.baseURL = 'http://192.168.0.155:8010/'
+  ///axios.defaults.baseURL = 'http://192.168.0.139/'
+  // axios.defaults.baseURL = 'http://192.168.0.138/'
+  // axios.defaults.baseURL = 'http://39.107.239.87/'
+  // axios.defaults.baseURL = 'http://192.168.0.155:8010/'
+  // axios.defaults.baseURL = 'http://192.168.0.111:8010'
+  axios.defaults.baseURL = "https://test.zhaocaipaipai.com";
 
 var loadingInstance;
 // POST传参序列化(添加请求拦截器)

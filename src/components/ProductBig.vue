@@ -8,7 +8,7 @@
       <img
         v-if="imgsrc"
         class="img"
-        :src="imgsrc"
+        :src="imgsrc + '?x-oss-process=image/resize,m_fixed,h_200,w_200'"
         style="object-fit: contain"
       />
       <img
@@ -27,7 +27,7 @@
       <p class="title">{{ title }}</p>
       <p class="subtitle">
         {{ subtitle }}
-       
+        <i class="el-icon-star-on" @click.stop="shouchang('0')"></i>
       </p>
       <p v-if="isPai" class="pai-price">
         起拍价
@@ -114,11 +114,14 @@ export default {
       default: true,
     },
     end_time: Number,
-   
   },
 };
 </script>
 <style lang="less" scoped>
+.el-icon-star-on {
+  font-size: 20px;
+  color: rgb(255, 174, 0);
+}
 .product-big {
   width: 285px;
   height: 320px;

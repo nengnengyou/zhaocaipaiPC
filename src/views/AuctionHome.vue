@@ -176,7 +176,7 @@
           <div class="sort-bar">
             <div class="sort-orders">
               <div>
-                <a
+                <!-- <a
                   @click="
                     isd = true;
                     qiehuan('2');
@@ -193,6 +193,15 @@
                   :class="{ isdescending: !isd }"
                   class="descending"
                   >全部竞拍</a
+                > -->
+                <a
+                  v-for="(item, index) in qiehuanarr"
+                  :key="index"
+                  :current="current"
+                  @click="qiehuan2(index)"
+                  :class="current == index ? 'isdescending' : ''"
+                  class="descending"
+                  >{{ item }}</a
                 >
               </div>
             </div>
@@ -270,90 +279,143 @@
 
 							</div> -->
 
-              <div
-                class="Auction_content_item"
-                v-for="item in package"
-                :key="item.id"
-                @click="tiaozhuan2(item.id, item.start_time)"
-              >
-                <!-- @click="tiaozhuan2(item.id,item.start_time)" -->
-                <!-- <div class="Auction_content_item" v-for="item in package" :key="item.id" @click="tanchutieyi(item.id,item.start_time,item.desc+item.rule)"> -->
+              <div v-if="current != 2">
+                <div
+                  class="Auction_content_item"
+                  v-for="item in package"
+                  :key="item.id"
+                  @click="tiaozhuan2(item.id, item.start_time)"
+                >
+                  <!-- @click="tiaozhuan2(item.id,item.start_time)" -->
+                  <!-- <div class="Auction_content_item" v-for="item in package" :key="item.id" @click="tanchutieyi(item.id,item.start_time,item.desc+item.rule)"> -->
 
-                <div class="Auction_content_item_left">
-                  <!-- <img src="../assets/images/jp_you2.jpg" alt=""> -->
+                  <div class="Auction_content_item_left">
+                    <!-- <img src="../assets/images/jp_you2.jpg" alt=""> -->
 
-                  <div
-                    v-if="!isend(item.end_time)"
-                    style="background-color:#919191; height: 60px; line-height: 60px; float: left; text-align: center; padding: 0px 10px;"
-                  >
-                    <span class="side-text">已结束</span>
+                    <div
+                      v-if="!isend(item.end_time)"
+                      style="background-color:#919191; height: 60px; line-height: 60px; float: left; text-align: center; padding: 0px 10px;"
+                    >
+                      <span class="side-text">已结束</span>
+                    </div>
+
+                    <div
+                      v-if="isend(item.end_time) && !isend(item.start_time)"
+                      style="background-color:#ff9600; height: 60px; line-height: 60px; float: left; text-align: center; padding: 0px 10px;"
+                    >
+                      <span class="side-text">竞拍中</span>
+                    </div>
+
+                    <div
+                      v-if="isend(item.end_time) && isend(item.start_time)"
+                      style="width: 75px;background-color:#008060; height: 60px; line-height: 60px; float: left; text-align: center; padding: 0px 10px;"
+                    >
+                      <span class="side-text">预拍</span>
+                    </div>
                   </div>
 
-                  <div
-                    v-if="isend(item.end_time) && !isend(item.start_time)"
-                    style="background-color:#ff9600; height: 60px; line-height: 60px; float: left; text-align: center; padding: 0px 10px;"
-                  >
-                    <span class="side-text">竞拍中</span>
-                  </div>
-
-                  <div
-                    v-if="isend(item.end_time) && isend(item.start_time)"
-                    style="width: 75px;background-color:#008060; height: 60px; line-height: 60px; float: left; text-align: center; padding: 0px 10px;"
-                  >
-                    <span class="side-text">预拍</span>
-                  </div>
-                </div>
-
-                <div class="Auction_content_item_right">
-                  <div style="float: left;">
-                    <!-- <a style="flex-direction: none;" :href="'/index.html#/auctionhome/auction?id='+item.id">
+                  <div class="Auction_content_item_right">
+                    <div style="float: left;">
+                      <!-- <a style="flex-direction: none;" :href="'/index.html#/auctionhome/auction?id='+item.id">
 											<p class="item-title">{{item.title}}</p>
 										</a> -->
 
-                    <p class="item-title">{{ item.title }}</p>
-                    <div class="item-store_2">
-                      <div>
-                        <span class="item-text" style="padding: 0;"
-                          >{{ item.is_pack == "1" ? "打包" : "单台"
-                          }}{{ item.status_text
-                          }}{{
-                            item.is_vip == "1" ? " 会员拍" : ""
-                          }}&nbsp;&nbsp;{{
-                            item.second == 1 ? "二轮竞拍" : ""
-                          }}</span
+                      <p class="item-title">{{ item.title }}</p>
+                      <div class="item-store_2">
+                        <div>
+                          <span class="item-text" style="padding: 0;"
+                            >{{ item.is_pack == "1" ? "打包" : "单台"
+                            }}{{ item.status_text
+                            }}{{
+                              item.is_vip == "1" ? " 会员拍" : ""
+                            }}&nbsp;&nbsp;{{
+                              item.second == 1 ? "二轮竞拍" : ""
+                            }}</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      style="background-color:#0f94fa; height: 60px; line-height: 60px; float: right; text-align: center; padding: 0px 10px;"
+                    >
+                      <p>
+                        <span class="side-text">{{ item.car_num }}辆</span>
+                      </p>
+                    </div>
+                    <p
+                      style="padding-top:5px;    font-size: 14px; color: #7d7d7d;   padding-left: 20px;display: block;height: 113px;width: 527px;overflow: hidden;float: left;"
+                      v-html="item.desc"
+                    ></p>
+
+                    <div
+                      style="padding-top: 10px; padding-left: 8px; float: left;display: flex;"
+                    >
+                      <div style="width: 138px;">
+                        <span class="item-text">{{ item.company }}</span>
+                      </div>
+                      <div style="position: relative;width: 408px;">
+                        <div
+                          class="item-text"
+                          style="position: absolute;right: 0px;"
                         >
+                          结束时间:
+
+                          <span class="item-text" style="color: #f42121;">
+                            {{ timestampToTime(item.end_time) }}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
 
-                  <div
-                    style="background-color:#0f94fa; height: 60px; line-height: 60px; float: right; text-align: center; padding: 0px 10px;"
-                  >
-                    <p>
-                      <span class="side-text">{{ item.car_num }}辆</span>
-                    </p>
-                  </div>
-                  <p
-                    style="padding-top:5px;    font-size: 14px; color: #7d7d7d;   padding-left: 20px;display: block;height: 113px;width: 527px;overflow: hidden;float: left;"
-                    v-html="item.desc"
-                  ></p>
+              <!--车商转拍  -->
+              <div v-if="current == 2">
+                <div v-for="(item, index) in carlist">
+                  <div class="Auction_content_item">
+                    <div class="Auction_content_item_left"></div>
+                    <div class="Auction_content_item_right">
+                      <div class="Auction_content_item_right_top">
+                        <p class="item-top-text">{{ item.catid_text }}</p>
+                        <p class="item-top-title">{{ item.title }}</p>
+                      </div>
+                      <div class="item-bottom">
+                        <div class="item-carnum item-padding ">
+                          <span class=""
+                            >{{ item.car_number }}|{{
+                              item.car_place_info
+                            }}</span
+                          >
+                        </div>
+                        <div class="item-padding">
+                          <span>{{
+                            cardtxt.status != "2"
+                              ? item.high_money == "0.00"
+                                ? "起拍价"
+                                : "当前价"
+                              : "起拍价"
+                          }}</span>
+                          <span class="price"
+                            >¥{{
+                              cardtxt.status != "2"
+                                ? item.high_money == "0.00"
+                                  ? item.start_price
+                                  : item.high_money
+                                : item.start_price
+                            }}</span
+                          >
+                        </div>
+                        <div>
+                          <div class="item-padding">
+                            结束时间:
 
-                  <div
-                    style="padding-top: 10px; padding-left: 8px; float: left;display: flex;"
-                  >
-                    <div style="width: 138px;">
-                      <span class="item-text">{{ item.company }}</span>
-                    </div>
-                    <div style="position: relative;width: 408px;">
-                      <div
-                        class="item-text"
-                        style="position: absolute;right: 0px;"
-                      >
-                        结束时间:
-
-                        <span class="item-text" style="color: #f42121;">
-                          {{ timestampToTime(item.end_time) }}
-                        </span>
+                            <span style="color: #f42121;">
+                              {{ timestampToTime(item.end_time) }}
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -364,15 +426,17 @@
         </div>
 
         <div v-if="!num == 0">
-          <el-pagination
-            @current-change="handleCurrentChange"
-            :current-page.sync="currentPage1"
-            :page-size="20"
-            layout="prev, pager, next, jumper"
-            :total="this.num"
-            style="margin: 0 auto; width: 566px;"
-          >
-          </el-pagination>
+          <div v-if="searchpage != 0">
+            <el-pagination
+              @current-change="handleCurrentChange"
+              :current-page.sync="currentPage1"
+              :page-size="10"
+              layout="prev, pager, next, jumper"
+              :total="this.num"
+              style="margin: 0 auto; width: 566px;"
+            >
+            </el-pagination>
+          </div>
         </div>
       </div>
 
@@ -578,6 +642,23 @@ export default {
 
       //车辆分类
       carfenlei: "",
+      qiehuanarr: ["正在竞拍", "历史竞拍", "车商转拍"],
+      current: 0,
+      carlist: [],
+      searchpage: 1,
+      // cardtxt: {
+      //   title: "----",
+      //   company: "----",
+      //   car_num: "----",
+      // },
+      // // isend2: false,
+      // time: {
+      //   endtime: 0,
+      //   d: 0,
+      //   h: 0,
+      //   m: 0,
+      //   s: 0,
+      // },
     };
   },
 
@@ -639,11 +720,63 @@ export default {
     },
 
     //切换正在竞拍和全部
-    qiehuan(type) {
+    // qiehuan(type) {
+    //   this.p = 1;
+    //   //this.isd=!this.isd
+    //   this.type = type;
+    //   this.getResources();
+    // },
+    qiehuan2(index) {
+      this.loading = true;
+      this.current = index;
+      if (index == 0) {
+        this.type = "2";
+        this.getResources();
+      }
+      // if (index == 1) {
+      //   this.type = "";
+      //   this.getResources();
+      // }
+      if (index == 1) {
+        this.getHistorySession();
+      }
+      if (index == 2) {
+        this.getzhuanPai();
+      }
       this.p = 1;
-      //this.isd=!this.isd
-      this.type = type;
-      this.getResources();
+      // console.log(this.current);
+    },
+    // 历史竞拍
+    getHistorySession() {
+      this.$api
+        .getAuctionHistorySession({
+          p: this.p,
+          row: 20,
+        })
+        .then((res) => {
+          this.package = res.data.list;
+          this.num = this.package.length;
+          this.loading = false;
+        });
+    },
+    // 车商转拍
+    getzhuanPai() {
+      this.$api
+        .getAuctionCar({
+          auction_session_id: "1",
+          p: this.p,
+        })
+        .then((res) => {
+          // console.log(res);
+          if (res.data.count == 1) {
+            this.carlist = res.data.list;
+            this.cardtxt = res.data.session;
+            this.loading = false;
+            this.num = this.carlist.length;
+            // console.log(this.carlist, "车商转拍");
+            // console.log(this.num, "this.num");
+          }
+        });
     },
 
     //收藏列表车辆详情跳转
@@ -682,8 +815,26 @@ export default {
 
     //页数跳转↓
     handleCurrentChange(val) {
+      // console.log(val, "分页器");
       this.p = val;
-      this.getResources();
+      // console.log(this.current, "分类");
+      if (this.current == 1) {
+        this.getHistorySession();
+        // this.current = "";
+        this.p = 1;
+        return;
+      }
+      if (this.current == 2) {
+        this.getzhuanPai();
+        this.p = 1;
+        return;
+      }
+      // console.log(this.current, "分类");
+      if (this.current == 0) {
+        this.getResources();
+
+        return;
+      }
 
       // this.package.length = 0;
       // let i = val * 30;
@@ -701,7 +852,7 @@ export default {
       // 		this.package.push(this.Zpackage[y]);
       // 	}
       // }
-      document.body.scrollTop = document.documentElement.scrollTop = 0;
+      // document.body.scrollTop = document.documentElement.scrollTop = 0;
       //this.$refs.auction_home.scrollTop=0;
 
       //console.log(`当前页: ${val}`);
@@ -765,27 +916,28 @@ export default {
           //   console.log(p2);
 
           this.package = p2;
-          this.num = this.package.length;
+          // this.num = 0;
+          console.log(this.num, "搜索this.num");
         });
       this.searchtext2 = "";
+      this.searchpage = 0;
       // console.log(this.package);
       //console.log(20);
     },
 
     //获取资源包
     getResources(id, company, t) {
-      //console.log(this.searchtext);
-      //console.log(company);
-
       /* if (t&&company!="") {
 					this.radio2 = '8'
 				} */
       this.loading = true;
       //this.num=0
+
       if (id) {
         this.p = 1;
         this.currentPage1 = 1;
       }
+
       // id!=""?this.p=1:'';
       this.package.length = 0;
       //this.currentPage1 = 1;
@@ -798,7 +950,7 @@ export default {
           row: 20,
         })
         .then((response) => {
-          console.log(response, 111111111111);
+          // console.log(response, "正在竞拍");
           //console.log(response.data.lest.data.length);
           // this.Zpackage.length = 0;
           this.package.length = 0;
@@ -807,14 +959,11 @@ export default {
           // this.Zpackage = response.data.list.data;
           this.package = response.data.list.data;
           // this.package.unshift(response.data.list.data);
-
-          // console.log(this.package, "sort");
           this.num = this.package.length;
-          // console.log(this.package.length);
           // this.Zpackage = this.sortKey(this.Zpackage, 'end_time')
           this.package = this.sortKey(this.package, "end_time");
-          //console.log(this.Zpackage);
           this.loading = false;
+          // this.p = 1;
 
           /* if (this.Zpackage.length <= 0) {
 						return
@@ -977,6 +1126,7 @@ export default {
 
     //时间戳转换
     timestampToTime(timestamp) {
+      // console.log(timestamp, "结束时间");
       var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
       var Y = date.getFullYear() + "-";
       var M =
@@ -1369,6 +1519,46 @@ export default {
   width: 560px;
   height: 100%;
   background-color: #eeeeee;
+}
+.Auction_content_item_right_top {
+  display: flex;
+  padding: 15px;
+}
+.item-top-text {
+  width: 50px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid lightblue;
+}
+.item-top-title {
+  display: block;
+  // padding-top: 12px;
+  padding-left: 20px;
+  line-height: 30px;
+  text-align: left;
+  // width: 400px;
+  color: #1b1b1b;
+  font-size: 24px;
+  font-weight: 700;
+}
+.item-bottom {
+  padding-left: 20px;
+}
+.item-padding {
+  padding: 4px;
+  font-size: 18px;
+}
+.item-carnum {
+  font-size: 18px;
+  // color: lightcoral;
+  padding: 4px;
+}
+.item-bottom .price {
+  color: #800019;
+  font-size: 24px;
+  margin-bottom: 5px;
 }
 
 .item-title {
