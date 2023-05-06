@@ -373,7 +373,10 @@
 
               <!--车商转拍  -->
               <div v-if="current == 2">
-                <div v-for="(item, index) in carlist">
+                <div
+                  v-for="(item, index) in carlist"
+                  @click="goDetailCar(item.id)"
+                >
                   <div class="Auction_content_item">
                     <div class="Auction_content_item_left"></div>
                     <div class="Auction_content_item_right">
@@ -430,7 +433,7 @@
             <el-pagination
               @current-change="handleCurrentChange"
               :current-page.sync="currentPage1"
-              :page-size="10"
+              :page-size="20"
               layout="prev, pager, next, jumper"
               :total="this.num"
               style="margin: 0 auto; width: 566px;"
@@ -729,6 +732,7 @@ export default {
     qiehuan2(index) {
       this.loading = true;
       this.current = index;
+      this.searchpage = 1;
       if (index == 0) {
         this.type = "2";
         this.getResources();
@@ -754,9 +758,17 @@ export default {
           row: 20,
         })
         .then((res) => {
-          this.package = res.data.list;
-          this.num = this.package.length;
-          this.loading = false;
+          if (res.code == 1) {
+            this.package = res.data.list;
+            // this.num = this.package.length;
+            this.num = res.data.count;
+
+            console.log(this.num, "历史竞拍");
+            this.loading = false;
+          } else {
+            this.loading = false;
+            this.$message(res.msg);
+          }
         });
     },
     // 车商转拍
@@ -768,15 +780,30 @@ export default {
         })
         .then((res) => {
           // console.log(res);
-          if (res.data.count == 1) {
+          if (res.code == 1) {
             this.carlist = res.data.list;
             this.cardtxt = res.data.session;
             this.loading = false;
             this.num = this.carlist.length;
+            console.log("暂无车辆");
+            if (res.data.count == 0) {
+              this.loading = false;
+              this.num = 0;
+
+              // this.$message("暂无车辆");
+            }
+            // this.num = res.data.num;
             // console.log(this.carlist, "车商转拍");
             // console.log(this.num, "this.num");
+          } else {
+            this.loading = false;
+            // this.$message("暂无车辆");
           }
         });
+    },
+    goDetailCar(id) {
+      console.log("跳转到车辆详情");
+      window.open("#/auctionhome/AuctionDetail?id=" + id, "_blank");
     },
 
     //收藏列表车辆详情跳转
@@ -817,6 +844,7 @@ export default {
     handleCurrentChange(val) {
       // console.log(val, "分页器");
       this.p = val;
+      // console.log(this.p);
       // console.log(this.current, "分类");
       if (this.current == 1) {
         this.getHistorySession();
@@ -852,7 +880,7 @@ export default {
       // 		this.package.push(this.Zpackage[y]);
       // 	}
       // }
-      // document.body.scrollTop = document.documentElement.scrollTop = 0;
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
       //this.$refs.auction_home.scrollTop=0;
 
       //console.log(`当前页: ${val}`);
@@ -959,7 +987,9 @@ export default {
           // this.Zpackage = response.data.list.data;
           this.package = response.data.list.data;
           // this.package.unshift(response.data.list.data);
-          this.num = this.package.length;
+          // this.num = this.package.length;
+          this.num = response.data.num;
+          console.log(this.num, "正在竞拍");
           // this.Zpackage = this.sortKey(this.Zpackage, 'end_time')
           this.package = this.sortKey(this.package, "end_time");
           this.loading = false;
@@ -1530,7 +1560,7 @@ export default {
   line-height: 30px;
   text-align: center;
   border-radius: 10px;
-  border: 1px solid lightblue;
+  border: 1px solid #4b4a4a;
 }
 .item-top-title {
   display: block;
